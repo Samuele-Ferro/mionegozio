@@ -3,95 +3,461 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Il Mio Negozio</title>
+  <title>Il Mio Negozio - Abbigliamento e Gioielli</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      min-height: 100vh;
+    }
+
     header {
-      background-color: #333;
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
       color: white;
-      padding: 20px;
+      padding: 3rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      opacity: 0.3;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
     nav {
-      background-color: #555;
-      padding: 10px;
+      background: rgba(52, 73, 94, 0.95);
+      padding: 1rem;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
     }
+
     nav a {
       color: white;
-      margin: 0 15px;
+      margin: 0 2rem;
       text-decoration: none;
-    }
-    section {
-      padding: 20px;
-    }
-    .product {
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
       display: inline-block;
-      width: 200px;
-      margin: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    section {
+      padding: 4rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    section:nth-child(even) {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
+      color: #2c3e50;
+      position: relative;
+      padding-bottom: 1rem;
     }
-    .product img {
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+
+    .hero-text {
+      text-align: center;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .product {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .product-image {
       width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
       border-radius: 10px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #667eea;
     }
+
+    .product h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .product p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #667eea;
+    }
+
+    .contact-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .contact-item p {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: white;
+    }
+
     footer {
-      background-color: #333;
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
       color: white;
       text-align: center;
-      padding: 10px;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    .scroll-top {
       position: fixed;
-      bottom: 0;
-      width: 100%;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      
+      nav a {
+        margin: 0 0.5rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+      }
+      
+      section {
+        padding: 2rem 1rem;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Il Mio Negozio</h1>
-  <p>Abbigliamento e Gioielli</p>
-</header>
+<div class="container">
+  <header>
+    <h1>Il Mio Negozio</h1>
+    <p>Abbigliamento e Gioielli di Qualità</p>
+  </header>
 
-<nav>
-  <a href="#home">Home</a>
-  <a href="#prodotti">Prodotti</a>
-  <a href="#contatti">Contatti</a>
-</nav>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#chi-siamo">Chi Siamo</a>
+    <a href="#prodotti">I Nostri Prodotti</a>
+    <a href="#social">Social</a>
+    <a href="#contatti">Contatti</a>
+  </nav>
 
-<section id="home">
-  <h2>Benvenuti!</h2>
-  <p>Scopri il nostro negozio di abbigliamento e gioielli.</p>
-</section>
+  <section id="home">
+    <h2>Benvenuti nel Nostro Mondo</h2>
+    <div class="hero-text">
+      <p>Scopri la nostra esclusiva collezione di abbigliamento e gioielli, dove l'eleganza incontra la qualità. Da oltre vent'anni, offriamo ai nostri clienti pezzi unici e ricercati, selezionati con cura per soddisfare i gusti più raffinati.</p>
+    </div>
+  </section>
 
-<section id="prodotti">
-  <h2>I nostri prodotti</h2>
-  <div class="product">
-    <img src="https://via.placeholder.com/200" alt="Prodotto 1">
-    <p>Vestito elegante</p>
-  </div>
-  <div class="product">
-    <img src="https://via.placeholder.com/200" alt="Prodotto 2">
-    <p>Collana d'oro</p>
-  </div>
-  <!-- Puoi aggiungere altri prodotti qui -->
-</section>
+  <section id="chi-siamo">
+    <h2>La Nostra Storia</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>Il nostro negozio nasce dalla passione per la moda e l'artigianato di qualità. Crediamo che ogni capo d'abbigliamento e ogni gioiello debba raccontare una storia, essere un'espressione della personalità di chi li indossa.</p>
+        <br>
+        <p>Il nostro team di esperti seleziona personalmente ogni articolo, garantendo standard elevati di qualità e stile. Offriamo un servizio personalizzato per aiutarti a trovare il pezzo perfetto per ogni occasione.</p>
+      </div>
+      <div class="about-image">
+        ✨
+      </div>
+    </div>
+  </section>
 
-<section id="contatti">
-  <h2>Contatti</h2>
-  <p>Email: info@ilmionegozio.it</p>
-  <p>Telefono: 123-456789</p>
-  <p>Indirizzo: Via Esempio 10, Città</p>
-</section>
+  <section id="prodotti">
+    <h2>Le Nostre Collezioni</h2>
+    <div class="products-grid">
+      <div class="product">
+        <div class="product-image">👗</div>
+        <h3>Abbigliamento Elegante</h3>
+        <p>Vestiti raffinati per occasioni speciali, realizzati con tessuti pregiati e attenzione ai dettagli. Perfetti per cerimonie, eventi formali e serate importanti.</p>
+      </div>
+      <div class="product">
+        <div class="product-image">💍</div>
+        <h3>Gioielleria Preziosa</h3>
+        <p>Collezione esclusiva di anelli, collane e braccialetti in oro, argento e pietre preziose. Ogni pezzo è unico e realizzato da maestri artigiani.</p>
+      </div>
+      <div class="product">
+        <div class="product-image">👜</div>
+        <h3>Accessori di Stile</h3>
+        <p>Borse, foulard e accessori selezionati per completare il tuo look con eleganza e raffinatezza. Materiali di qualità e design esclusivi.</p>
+      </div>
+      <div class="product">
+        <div class="product-image">⌚</div>
+        <h3>Orologi di Lusso</h3>
+        <p>Collezione di orologi prestigiosi dalle migliori case manifatturiere. Precisione, eleganza e stile si fondono in pezzi senza tempo.</p>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  &copy; 2025 Il Mio Negozio
-</footer>
+  <section id="contatti">
+    <h2>Vieni a Trovarci</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <h3>Email</h3>
+        <p>info@ilmionegozio.it</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <h3>Telefono</h3>
+        <p>+39 123 456 789</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <h3>Indirizzo</h3>
+        <p>Via Esempio 10<br>Bassano del Grappa, VI</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕒</div>
+        <h3>Orari</h3>
+        <p>Lun-Sab: 9:00-19:00<br>Dom: 10:00-18:00</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Il Mio Negozio - Tutti i diritti riservati</p>
+    <p>Abbigliamento e Gioielli di Qualità dal 2005</p>
+  </footer>
+</div>
+
+<button class="scroll-top" onclick="scrollToTop()">↑</button>
+
+<script>
+  // Smooth scrolling per i link di navigazione
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      if (targetSection) {
+        targetSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Bottone scroll to top
+  window.addEventListener('scroll', function() {
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    if (window.pageYOffset > 300) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
+  });
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // Animazione hover per i prodotti
+  document.querySelectorAll('.product').forEach(product => {
+    product.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    product.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+
+  // Effetto parallax leggero per l'header
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * -0.5;
+    header.style.transform = `translateY(${rate}px)`;
+  });
+</script>
 
 </body>
 </html>
