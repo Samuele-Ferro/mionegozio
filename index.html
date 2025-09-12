@@ -1,463 +1,646 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Il Mio Negozio - Abbigliamento e Gioielli</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Icona del Buon Ladrone – Pagina informativa</title>
+    <meta name="description"
+        content="Pagina dedicata all'icona del Buon Ladrone (Dismas): spiegazioni delle foto, domande tipiche con risposte, video e altro." />
+    <style>
+        :root {
+            --bg: #f7f7f9;
+            --card: #ffffff;
+            --accent: #4b5563;
+            --muted: #6b7280;
+            --overlay: rgba(0, 0, 0, 0.4);
+        }
 
-    body {
-      font-family: 'Georgia', serif;
-      line-height: 1.6;
-      color: #333;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-    }
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            line-height: 1.45;
+            margin: 0;
+            background: var(--bg);
+            color: #111
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: white;
-      box-shadow: 0 0 30px rgba(0,0,0,0.1);
-      min-height: 100vh;
-    }
+        /* HERO SECTION SISTEMATA */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background:
+                linear-gradient(var(--overlay), var(--overlay)),
+                linear-gradient(135deg, #8B4513, #D2691E),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><pattern id="cross" patternUnits="userSpaceOnUse" width="60" height="60"><rect width="60" height="60" fill="%23D2691E"/><rect x="25" y="5" width="10" height="50" fill="%238B4513" opacity="0.6"/><rect x="5" y="25" width="50" height="10" fill="%238B4513" opacity="0.6"/></pattern></defs><rect width="100%" height="100%" fill="url(%23cross)"/><circle cx="200" cy="150" r="80" fill="%23654321" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+        }
 
-    header {
-      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-      color: white;
-      padding: 3rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+        /* Contenuto hero centrato */
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2;
+            position: relative;
+        }
 
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-      opacity: 0.3;
-    }
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8);
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: 2px;
+        }
 
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 0.5rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      position: relative;
-      z-index: 1;
-    }
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin: 0 0 3rem 0;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            font-weight: 300;
+            opacity: 0.95;
+        }
 
-    header p {
-      font-size: 1.3rem;
-      opacity: 0.9;
-      position: relative;
-      z-index: 1;
-    }
+        .hero-nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
 
-    nav {
-      background: rgba(52, 73, 94, 0.95);
-      padding: 1rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-    }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            animation: bounce 2s infinite;
+            z-index: 2;
+        }
 
-    nav a {
-      color: white;
-      margin: 0 2rem;
-      text-decoration: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      display: inline-block;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.9rem;
-    }
+        .scroll-indicator::before {
+            content: '↓';
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+        }
 
-    nav a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
 
-    section {
-      padding: 4rem 2rem;
-      margin-bottom: 2rem;
-    }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
 
-    section:nth-child(even) {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: #2c3e50;
-      position: relative;
-      padding-bottom: 1rem;
-    }
+        @keyframes bounce {
 
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-radius: 2px;
-    }
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
 
-    .hero-text {
-      text-align: center;
-      font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      color: #555;
-      line-height: 1.8;
-    }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
 
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
 
-    .product {
-      background: white;
-      border-radius: 15px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
+        /* Mobile responsiveness per hero */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 100vh;
+                background-attachment: scroll;
+            }
 
-    .product::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-    }
+            .hero h1 {
+                font-size: 2.8rem;
+                letter-spacing: 1px;
+            }
 
-    .product:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+            .hero .subtitle {
+                font-size: 1.2rem;
+                padding: 0 1rem;
+                margin-bottom: 2rem;
+            }
 
-    .product-image {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: #667eea;
-    }
+            .hero-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
 
-    .product h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: #2c3e50;
-    }
+            .hero-content {
+                padding: 1rem;
+            }
+        }
 
-    .product p {
-      color: #666;
-      line-height: 1.6;
-    }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
 
-    .contact-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+        }
 
-    .contact-item {
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-    }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem
+        }
 
-    .contact-item:hover {
-      transform: translateY(-5px);
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem
+        }
 
-    .contact-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #667eea;
-    }
+        @media(min-width:860px) {
+            .grid {
+                grid-template-columns: 2fr 1fr
+            }
+        }
 
-    .contact-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: #2c3e50;
-    }
+        .card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease
+        }
 
-    .contact-item p {
-      color: #666;
-      font-size: 1rem;
-    }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(15, 23, 42, 0.15)
+        }
 
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      margin-top: 2rem;
-    }
+        /* Section spacing */
+        main {
+            padding: 3rem 0;
+        }
 
-    .about-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #555;
-    }
+        section h2 {
+            color: var(--accent);
+            border-bottom: 3px solid #e6e6e9;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
 
-    .about-image {
-      width: 100%;
-      height: 300px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      color: white;
-    }
+        figure {
+            margin: 0
+        }
 
-    footer {
-      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-      color: white;
-      text-align: center;
-      padding: 2rem;
-      margin-top: 4rem;
-    }
+        img.responsive {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            transition: transform 0.3s ease
+        }
 
-    .scroll-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 100;
-    }
+        img.responsive:hover {
+            transform: scale(1.02)
+        }
 
-    .scroll-top.visible {
-      opacity: 1;
-    }
+        .caption {
+            font-size: .95rem;
+            color: var(--muted);
+            margin-top: .6rem;
+            line-height: 1.4
+        }
 
-    .scroll-top:hover {
-      transform: translateY(-3px);
-    }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0
+        }
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.5rem;
-      }
-      
-      nav a {
-        margin: 0 0.5rem;
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
-      }
-      
-      section {
-        padding: 2rem 1rem;
-      }
-      
-      .about-content {
-        grid-template-columns: 1fr;
-      }
-      
-      .products-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .thumb {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative
+        }
+
+        .thumb::after {
+            content: '🔍';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.3rem 0.5rem;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease
+        }
+
+        .thumb:hover::after {
+            opacity: 1
+        }
+
+        .meta {
+            font-size: .9rem;
+            color: var(--muted);
+            margin-bottom: 1rem
+        }
+
+        .faq dt {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            color: var(--accent);
+            font-size: 1.05rem
+        }
+
+        .faq dd {
+            margin: 0 0 1rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid #e6e6e9
+        }
+
+        .video-wrap {
+            position: relative;
+            padding-top: 56.25%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1)
+        }
+
+        .video-wrap iframe {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 0
+        }
+
+        a.button {
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            color: #fff;
+            padding: 1rem 1.8rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+        }
+
+        a.button:hover {
+            background: linear-gradient(135deg, #A0522D, #F4A460);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: .9rem;
+            background: var(--card);
+            margin-top: 3rem
+        }
+
+        /* Lightbox migliorato */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 999;
+            backdrop-filter: blur(4px)
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5)
+        }
+
+        .close-x {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease
+        }
+
+        .close-x:hover {
+            background: rgba(0, 0, 0, 0.8)
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Indicatore di progresso scroll */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #8B4513, #D2691E);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="progress-bar" id="progressBar"></div>
 
-<div class="container">
-  <header>
-    <h1>Il Mio Negozio</h1>
-    <p>Abbigliamento e Gioielli di Qualità</p>
-  </header>
+    <header class="hero" style="
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
+                url('images/buon-ladrone-hero.png') center/cover no-repeat;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+  ">
+        <div class="hero-text">
+            <h1>Icona del Buon Ladrone</h1>
+            <p>
+                Questo Ladrone ha rubato il Paradiso.<br>
+                Nessuno prima di lui ha mai sentito una simile promessa…<br>
+                né Abramo, né Isacco, né Giacobbe, né Mosè, né i profeti, né gli apostoli:<br>
+                il Ladrone entrò prima di tutti loro.<br><br>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#chi-siamo">Chi Siamo</a>
-    <a href="#prodotti">I Nostri Prodotti</a>
-    <a href="#social">Social</a>
-    <a href="#contatti">Contatti</a>
-  </nav>
+                Egli vide Gesù tormentato e lo adorò come se fosse nella gloria.<br>
+                Lo vide inchiodato ad una croce e lo supplicò come se stesse su un trono.<br>
+                Lo vide condannato e gli chiese una grazia come a un re.<br><br>
 
-  <section id="home">
-    <h2>Benvenuti nel Nostro Mondo</h2>
-    <div class="hero-text">
-      <p>Scopri la nostra esclusiva collezione di abbigliamento e gioielli, dove l'eleganza incontra la qualità. Da oltre vent'anni, offriamo ai nostri clienti pezzi unici e ricercati, selezionati con cura per soddisfare i gusti più raffinati.</p>
+                O ammirabile Ladrone!<br>
+                Hai veduto un uomo crocifisso e lo proclamasti Dio.<br>
+                SanGiovanniCrisostomo <br>
+                ScuolaiconograficadiSeriate-RussiaCristiana
+            </p>
+
+        </div>
+    </header>
+
+    <main class="container" role="main">
+        <div class="grid">
+            <section class="card" id="spiegazione-foto">
+                <h2>Spiegazione delle foto</h2>
+                <p class="meta">Qui trovi immagini tipiche dell'iconografia: ognuna ha una breve spiegazione che aiuta a
+                    interpretare simboli, posture e iscrizioni.</p>
+
+                <div class="gallery" aria-label="Galleria di immagini dell'icona del Buon Ladrone">
+                    <figure>
+                        <div class="thumb" data-full="images/buon-ladrone-1.jpg">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'><rect width='300' height='400' fill='%23D2691E'/><rect x='140' y='50' width='20' height='150' fill='%238B4513'/><rect x='50' y='120' width='200' height='20' fill='%238B4513'/><circle cx='150' cy='80' r='25' fill='%23DEB887'/><text x='150' y='350' text-anchor='middle' fill='%23654321' font-size='14'>Testa inclinata</text></svg>"
+                                alt="Icona classica del Buon Ladrone con il capo inclinato" class="responsive">
+                        </div>
+                        <figcaption class="caption"><strong>Foto 1 – Testa inclinata:</strong> la testa piegata verso
+                            Cristo è spesso interpretata come segno di pentimento e riconoscimento della propria colpa.
+                        </figcaption>
+                    </figure>
+
+                    <figure>
+                        <div class="thumb">
+                            <img src="images/" alt="Dettaglio dell'iscrizione sopra la croce" class="responsive">
+                        </div>
+                        <figcaption class="caption"><strong>Foto 2 – Iscrizione:</strong> in alcune icone sono presenti
+                            iscrizioni che citano le parole di perdono: "Ricordati di me", o "Oggi sarai con me in
+                            paradiso".</figcaption>
+                    </figure>
+
+                    <figure>
+                        <div class="thumb" data-full="images/buon-ladrone-3.jpg">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'><rect width='300' height='400' fill='%23F4A460'/><g><rect x='120' y='50' width='15' height='100' fill='%238B4513'/><rect x='60' y='90' width='120' height='12' fill='%238B4513'/><circle cx='128' cy='70' r='15' fill='%23DEB887'/></g><g transform='translate(200,0)'><rect x='20' y='50' width='15' height='100' fill='%238B4513'/><rect x='-20' y='90' width='100' height='12' fill='%238B4513'/><circle cx='28' cy='70' r='15' fill='%23DEB887'/></g><circle cx='50' cy='300' r='8' fill='%23654321'/><circle cx='100' cy='280' r='8' fill='%23654321'/><circle cx='200' cy='290' r='8' fill='%23654321'/><text x='150' y='380' text-anchor='middle' fill='%23654321' font-size='14'>Contesto</text></svg>"
+                                alt="Scena laterale con la folla intorno alla crocifissione" class="responsive">
+                        </div>
+                        <figcaption class="caption"><strong>Foto 3 – Contesto:</strong> la presenza di soldati e curiosi
+                            sottolinea la dimensione storica e pubblica del martirio, mentre il Buon Ladrone appare
+                            isolato nella sua conversione.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <aside class="card" id="riassunto">
+                <h3>In breve</h3>
+                <p class="meta">Il Buon Ladrone (tradizionalmente chiamato Dismas nella tradizione cristiana orientale)
+                    è figura chiave per temi di misericordia, pentimento e salvezza immediata.</p>
+                <h4>Contenuti presenti</h4>
+                <ul>
+                    <li>Galleria con spiegazioni di ogni foto</li>
+                    <li>FAQ con domande tipiche e risposte chiare</li>
+                    <li>Video esplicativo incorporato</li>
+                    <li>Testi di approfondimento e bibliografia suggerita</li>
+                </ul>
+            </aside>
+        </div>
+
+        <section class="card" id="faq" aria-labelledby="faq-title">
+            <h2 id="faq-title">Domande tipiche con risposte</h2>
+            <dl class="faq">
+                <dt>1) Chi è il Buon Ladrone?</dt>
+                <dd>Nei Vangeli apocrifi e nella tradizione cristiana viene ricordato come uno dei due malfattori
+                    crocifissi con Gesù che, pentendosi, riceve la promessa di salvezza da Cristo. Nella tradizione
+                    orientale è chiamato Dismas.</dd>
+
+                <dt>2) Perché viene chiamato "buono"?</dt>
+                <dd>L'aggettivo "buono" non indica moralità precedente ma il gesto finale di pentimento e fede, che
+                    riceve in cambio il perdono e la promessa del Paradiso.</dd>
+
+                <dt>3) Qual è il significato iconografico della sua postura?</dt>
+                <dd>Gesti come inclinare la testa, rivolgere lo sguardo verso Cristo, o mostrare mani aperte sono
+                    simboli di abbandono, supplica e accoglienza della misericordia.</dd>
+
+                <dt>4) Le icone mostrano iscrizioni: sono testi biblici?</dt>
+                <dd>Spesso sono citazioni dei Vangeli (es. la frase "Oggi sarai con me in Paradiso") o formule
+                    liturgiche che sintetizzano la speranza cristiana nella misericordia divina.</dd>
+
+                <dt>5) Come viene rappresentato nell'arte orientale vs occidentale?</dt>
+                <dd>Nell'arte bizantina prevalgono i canoni iconografici fissi con simbolismi codificati, mentre
+                    nell'arte occidentale c'è maggiore realismo emotivo e varietà espressiva nella rappresentazione del
+                    pentimento.</dd>
+            </dl>
+        </section>
+
+        <section class="card" id="video">
+            <h2>Video esplicativo</h2>
+            <p class="meta">Guarda un breve video che introduce la storia, le fonti e l'iconografia.</p>
+            <div class="video-wrap">
+                <!-- Sostituisci VIDEO_ID con l'id reale di YouTube -->
+                <iframe src="https://www.youtube.com/embed/q7cGysKCfmQ" title="Video: Il Buon Ladrone"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="card" id="altro">
+            <h2>Altri contenuti</h2>
+            <h3>Testo di approfondimento</h3>
+            <p>La figura del Buon Ladrone si è sviluppata nella devozione popolare e nella letteratura cristiana
+                attraverso i secoli. I testi apocrifi come il "Vangelo di Nicodemo" forniscono dettagli sulla sua
+                storia, mentre i Padri della Chiesa hanno visto in lui il simbolo perfetto della conversione dell'ultimo
+                momento e della misericordia divina che non conosce limiti temporali.</p>
+
+            <h3>Bibliografia suggerita</h3>
+            <ul>
+                <li><strong>Apocrifi del Nuovo Testamento</strong> - per le fonti narrative originali</li>
+                <li><strong>Studi di iconografia cristiana</strong> - analisi dell'evoluzione artistica delle
+                    rappresentazioni della crocifissione</li>
+                <li><strong>Teologia della misericordia</strong> - saggi sul perdono e la salvezza nella tradizione
+                    cristiana</li>
+                <li><strong>Arte bizantina e occidentale</strong> - confronti stilistici e simbolici</li>
+            </ul>
+
+            <h3>Risorse scaricabili</h3>
+            <p>Materiali didattici e di approfondimento:</p>
+            <ul>
+                <li><a href="files/scheda-buon-ladrone.txt" class="button" download>Scheda didattica PDF</a></li>
+                <br>
+                <li><a href="files/immagini-buon-ladrone.zip" class="button" download>Raccolta di immagini HD</a></li>
+                <br>
+                <li><a href="files/testi-apocrifi.pdf" class="button" download>Testi apocrifi tradotti</a></li>
+            </ul>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Creato per approfondire l'icona del Buon Ladrone – una figura di speranza e misericordia nella tradizione
+                cristiana.</p>
+        </div>
+    </footer>
+    <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+        <span class="close-x" id="lb-close" aria-label="Chiudi">×</span>
+        <img src="" alt="" id="lb-img">
     </div>
-  </section>
 
-  <section id="chi-siamo">
-    <h2>La Nostra Storia</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p>Il nostro negozio nasce dalla passione per la moda e l'artigianato di qualità. Crediamo che ogni capo d'abbigliamento e ogni gioiello debba raccontare una storia, essere un'espressione della personalità di chi li indossa.</p>
-        <br>
-        <p>Il nostro team di esperti seleziona personalmente ogni articolo, garantendo standard elevati di qualità e stile. Offriamo un servizio personalizzato per aiutarti a trovare il pezzo perfetto per ogni occasione.</p>
-      </div>
-      <div class="about-image">
-        ✨
-      </div>
-    </div>
-  </section>
-
-  <section id="prodotti">
-    <h2>Le Nostre Collezioni</h2>
-    <div class="products-grid">
-      <div class="product">
-        <div class="product-image">👗</div>
-        <h3>Abbigliamento Elegante</h3>
-        <p>Vestiti raffinati per occasioni speciali, realizzati con tessuti pregiati e attenzione ai dettagli. Perfetti per cerimonie, eventi formali e serate importanti.</p>
-      </div>
-      <div class="product">
-        <div class="product-image">💍</div>
-        <h3>Gioielleria Preziosa</h3>
-        <p>Collezione esclusiva di anelli, collane e braccialetti in oro, argento e pietre preziose. Ogni pezzo è unico e realizzato da maestri artigiani.</p>
-      </div>
-      <div class="product">
-        <div class="product-image">👜</div>
-        <h3>Accessori di Stile</h3>
-        <p>Borse, foulard e accessori selezionati per completare il tuo look con eleganza e raffinatezza. Materiali di qualità e design esclusivi.</p>
-      </div>
-      <div class="product">
-        <div class="product-image">⌚</div>
-        <h3>Orologi di Lusso</h3>
-        <p>Collezione di orologi prestigiosi dalle migliori case manifatturiere. Precisione, eleganza e stile si fondono in pezzi senza tempo.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contatti">
-    <h2>Vieni a Trovarci</h2>
-    <div class="contact-info">
-      <div class="contact-item">
-        <div class="contact-icon">📧</div>
-        <h3>Email</h3>
-        <p>info@ilmionegozio.it</p>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <h3>Telefono</h3>
-        <p>+39 123 456 789</p>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <h3>Indirizzo</h3>
-        <p>Via Esempio 10<br>Bassano del Grappa, VI</p>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">🕒</div>
-        <h3>Orari</h3>
-        <p>Lun-Sab: 9:00-19:00<br>Dom: 10:00-18:00</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Il Mio Negozio - Tutti i diritti riservati</p>
-    <p>Abbigliamento e Gioielli di Qualità dal 2005</p>
-  </footer>
-</div>
-
-<button class="scroll-top" onclick="scrollToTop()">↑</button>
-
-<script>
-  // Smooth scrolling per i link di navigazione
-  document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      const targetSection = document.querySelector(targetId);
-      if (targetSection) {
-        targetSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+    <script>
+        // Lightbox
+        document.querySelectorAll('.thumb').forEach(function (t) {
+            t.addEventListener('click', function () {
+                var src = t.getAttribute('data-full') || t.querySelector('img').src;
+                var lb = document.getElementById('lightbox');
+                var img = document.getElementById('lb-img');
+                img.src = src; img.alt = t.querySelector('img').alt || '';
+                lb.style.display = 'flex'; lb.setAttribute('aria-hidden', 'false');
+            })
         });
-      }
-    });
-  });
 
-  // Bottone scroll to top
-  window.addEventListener('scroll', function() {
-    const scrollTopBtn = document.querySelector('.scroll-top');
-    if (window.pageYOffset > 300) {
-      scrollTopBtn.classList.add('visible');
-    } else {
-      scrollTopBtn.classList.remove('visible');
-    }
-  });
+        document.getElementById('lb-close').addEventListener('click', function () {
+            var lb = document.getElementById('lightbox');
+            lb.style.display = 'none';
+            lb.setAttribute('aria-hidden', 'true');
+        });
 
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target.id === 'lightbox') {
+                this.style.display = 'none';
+                this.setAttribute('aria-hidden', 'true');
+            }
+        });
 
-  // Animazione hover per i prodotti
-  document.querySelectorAll('.product').forEach(product => {
-    product.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    product.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateY(0) scale(1)';
-    });
-  });
+        // Keyboard controls
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                var lb = document.getElementById('lightbox');
+                lb.style.display = 'none';
+                lb.setAttribute('aria-hidden', 'true');
+            }
+        });
 
-  // Effetto parallax leggero per l'header
-  window.addEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-    header.style.transform = `translateY(${rate}px)`;
-  });
-</script>
+        // Smooth scrolling per i link interni
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
+        // Progress bar durante lo scroll
+        window.addEventListener('scroll', function () {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Animazione delle card quando entrano nel viewport
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Applica l'animazione a tutte le card
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
+
 </html>
